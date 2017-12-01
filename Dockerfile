@@ -24,8 +24,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 # php-fpm config
 RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.0/fpm/php.ini
 
-# will be mounted to a host directory, which should contain at least one nginx site config file
-VOLUME ["/etc/nginx/sites-enabled"]
+# sites-enabled should be mounted to a host directory, which should contain at least one nginx site config file
+# doc-root should be mounted to a host directory that contains the actual Web content
+VOLUME ["/etc/nginx/sites-enabled", "/doc-root"]
 
 # nginx should be configed to listen to at least one of these ports
 EXPOSE 80 8080 8081
